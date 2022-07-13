@@ -1,62 +1,56 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from "react";
-//import fs from "fs";
  
+
 function App() {
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [message, setMessage] = useState("");
-  //const fs = require('fs');
-//  const fetch = require('node-fetch');
-//  const https = require('https');
-  
-//  const httpsAgent = new https.Agent({
-//	  rejectUnauthorized: false,
-//  });
+  const [data, setData] = useState("");
 
   let handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //const fs = require('fs');
-      let res = await fetch("https://localhost:9200/testindex/_doc", {
+      let res = await fetch("http://localhost:9000/", {
        method: "POST",
        headers: {
-        'Content-Type': 'application/json',
-	'Authorization': 'Basic ZWxhc3RpYzpCdkR4Ykw5c0s5cDdLOUU1MXUtaA=='       
+        'Content-Type': 'application/json'
+//	'Authorization': 'Basic ZWxhc3RpYzpCdkR4Ykw5c0s5cDdLOUU1MXUtaA=='       
       },
        body: JSON.stringify({
         tipoUsuario: tipoUsuario
-       }),
-	      rejectUnauthorized: false
-//       agent: httpsAgent
+       })
      });
+     console.log(res)
      let resJson = await res.json();
-      if (res.status === 200) {
+     console.log(resJson)
+     if (res.status === 200) {
         setTipoUsuario("");
-        setMessage('User created successfully');
+        setMessage('User Created');
+        setData(resJson);
       } else {
-        setMessage("Some error occurred");
+        setMessage("error");
       }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
+  };
+ 
+function testfunc() {
+    return (
+      <>
+      
+        { data ? 
+          data.map(({ name, city }) => (
+            <p key={name}>My name is {name} i am from {city}.</p>
+            )
+          ) : null
+        }
+      </>
+    );
   };
 return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
       <form className="App-form" onSubmit={handleSubmit}>
         <input
             type="text"
@@ -64,11 +58,15 @@ return (
             placeholder="Tipo De Usuario"
             onChange={(e) => setTipoUsuario(e.target.value)}
         />
-	<button type="submit">Create</button>
+    	  <button type="submit">Create</button>
+    
+        <div> {testfunc()}</div>
 
-        <div className="message">{message ? <p>{message}</p> : null}</div>
       </form>
+     
+
     </div>
+    
   );
 }
 
