@@ -14,9 +14,9 @@ router.get('/', function(req, res, next) {
 const client = new Client({
   node: 'https://localhost:9200',
   auth: {
-    apiKey: 'UEZfejZZRUI0UTJGN1lpQ2Q2WFY6NmFSZmtmYnNSOWktZnJtRm9BUGlnQQ'
+    apiKey: 'UEZfejZZRUI0UTJGN1lpQ2Q2WFY6NmFSZmSOWktZnJtRm9BUGlnQQ'
   },
-  caFingerprint: '8D:85:E7:38:DB:67:CE:43:80:E1:07:F0:51:CB:17:BD:58:D1:90:98:3D:55:DE:61:BD:8E:DC:DF:26:C4:E2:E0',
+  caFingerprint: '8D:85:E7:38:DB:67:CE:43:80:E1:07:F0:3D:55:DE:61:BD:8E:DC:DF:26:C4:E2:E0',
   tls: {
     // might be required if it's a self-signed certificate
     rejectUnauthorized: false
